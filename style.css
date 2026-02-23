@@ -164,6 +164,26 @@ ul {
     justify-content: space-between;
 }
 
+@media (max-width: 992px) {
+    .hero-layout {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-content-box {
+        text-align: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-image-box {
+        justify-content: center;
+    }
+}
+
 .hero-content-box {
     flex: 1;
     text-align: left;
@@ -243,8 +263,15 @@ ul {
 
 .course-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 3rem;
+}
+
+@media (max-width: 480px) {
+    .course-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
 }
 
 /* 課程卡片 (Course Cards) */
@@ -294,8 +321,6 @@ ul {
     border-radius: 8px;
     margin-top: 1rem;
 }
-
-
 
 .card-body {
     padding: 1.5rem;
@@ -496,9 +521,16 @@ ul {
     align-items: center;
 }
 
+@media (max-width: 768px) {
+    .split-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
 .feature-img {
     width: 100%;
-    height: 300px;
+    height: auto;
     object-fit: cover;
     border-radius: var(--border-radius);
     display: block;
@@ -572,47 +604,17 @@ ul {
     }
 }
 
-/* 影片區塊 (Video Section) */
+/* 影片區塊 ( Consolidanted ) */
 .video-section {
     padding: 6rem 0;
     background-color: #fafafa;
     text-align: center;
 }
 
-.video-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    background: #000;
-}
-
-.video-container video {
-    width: 100%;
-    display: block;
-}
-
-/* 圖片文字左右排版 */
-.split-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.feature-img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-}
-
-/* 影片區塊 (Video Section) */
-.video-section {
-    padding: 6rem 0;
-    background-color: #fafafa;
-    text-align: center;
+@media (max-width: 768px) {
+    .video-section {
+        padding: 3rem 0;
+    }
 }
 
 .video-container {
