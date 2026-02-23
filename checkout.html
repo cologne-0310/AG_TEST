@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訂單結帳 | 源點身&心靈工作坊</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo"><img src="assets/logo.png" alt="源點 logo">源點<span
+                    class="logo-sub">身&心靈工作坊</span></a>
+            <ul class="nav-links">
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="index.html">最新消息</a></li>
+                <li><a href="academy.html">各類課程</a></li>
+                <li><a href="shop.html">療癒服務</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="checkout-container">
+            <div class="checkout-form-section">
+                <h2>顧客資訊</h2>
+                <form id="checkout-form" style="display: grid; gap: 1.5rem; margin-top: 1.5rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">姓名</label>
+                        <input type="text" name="name" required
+                            style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">電子信箱</label>
+                        <input type="email" name="email" required
+                            style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">連絡電話</label>
+                        <input type="tel" name="phone" required
+                            style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">備註 (如：預約時段偏好)</label>
+                        <textarea name="note" rows="4"
+                            style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px;"></textarea>
+                    </div>
+                    <button type="submit" class="checkout-btn" style="margin-top: 1rem;">確認並送出訂單</button>
+                </form>
+            </div>
+
+            <div class="order-summary-section">
+                <h3>訂單摘要</h3>
+                <div id="checkout-items" style="margin-top: 1.5rem;">
+                    <!-- Items injected by JS -->
+                </div>
+                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid #ddd;">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: bold;">
+                        <span>總計</span>
+                        <span id="checkout-total">NT$ 0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2025 源點身&心靈工作坊. 版權所有.</p>
+        </div>
+    </footer>
+
+    <script src="cart.js"></script>
+    <script>
+        // Checkout page specific logic
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCheckout();
+
+            document.getElementById('checkout-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const orderData = {
+                    customer: Object.fromEntries(formData),
+                    items: cart,
+                    total: cart.reduce((sum, item) => sum + item.price, 0)
+                };
+
+                alert('訂單已送出（模擬）！感謝您的購買。');
+                console.log('Order Data for Supabase:', orderData);
+
+                // Clear cart
+                localStorage.removeItem('yuan_point_cart');
+                window.location.href = 'index.html';
+            });
+        });
+
+        function renderCheckout() {
+            const container = document.getElementById('checkout-items');
+            const totalEl = document.getElementById('checkout-total');
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p>您的購物車是空的</p>';
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map(item => {
+                total += item.price;
+                return `
+                    <div class="summary-item" style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <span>${item.name} (${item.option})</span>
+                        <span style="font-weight: bold;">NT$ ${item.price.toLocaleString()}</span>
+                    </div>
+                `;
+            }).join('');
+            totalEl.textContent = `NT$ ${total.toLocaleString()}`;
+        }
+    </script>
+</body>
+
+</html>
